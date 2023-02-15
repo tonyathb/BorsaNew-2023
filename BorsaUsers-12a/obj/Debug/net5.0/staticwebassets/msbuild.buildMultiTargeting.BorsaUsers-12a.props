@@ -1,0 +1,3 @@
+﻿<Project>
+  <Import Project="..\build\BorsaUsers-12a.props" />
+</Project>
