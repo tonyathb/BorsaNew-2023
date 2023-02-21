@@ -9,17 +9,17 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
 
-namespace BorsaUsers_12d.Data.Migrations
+namespace BorsaUsers_12d.Migrations
 {
     [DbContext(typeof(BorsaDbContext))]
-    [Migration("20230214215549_InitMiration12d")]
-    partial class InitMiration12d
+    [Migration("20230220034545_Init")]
+    partial class Init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "6.0.13")
+                .HasAnnotation("ProductVersion", "6.0.14")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
@@ -136,15 +136,12 @@ namespace BorsaUsers_12d.Data.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("TypesProductId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("TypesProductsId")
+                    b.Property<int>("TypeProductId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("TypesProductsId");
+                    b.HasIndex("TypeProductId");
 
                     b.ToTable("Products");
                 });
@@ -166,7 +163,7 @@ namespace BorsaUsers_12d.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("TypesProducts");
+                    b.ToTable("TypeProducts");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -327,13 +324,13 @@ namespace BorsaUsers_12d.Data.Migrations
 
             modelBuilder.Entity("BorsaUsers_12d.Data.Product", b =>
                 {
-                    b.HasOne("BorsaUsers_12d.Data.TypeProduct", "TypesProducts")
+                    b.HasOne("BorsaUsers_12d.Data.TypeProduct", "TypeProducts")
                         .WithMany("Products")
-                        .HasForeignKey("TypesProductsId")
+                        .HasForeignKey("TypeProductId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("TypesProducts");
+                    b.Navigation("TypeProducts");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

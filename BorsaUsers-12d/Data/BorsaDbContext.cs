@@ -12,6 +12,6 @@ namespace BorsaUsers_12d.Data
         }
         public DbSet<Product> Products { get; set; }
         public DbSet<Order> Orders { get; set; }
-        public DbSet<TypeProduct> TypesProducts { get; set; }
+        public DbSet<TypeProduct> TypeProducts { get; set; }
     }
 }

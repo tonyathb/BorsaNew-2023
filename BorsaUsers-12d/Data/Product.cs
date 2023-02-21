@@ -11,13 +11,12 @@ namespace BorsaUsers_12d.Data
         public int Id { get; set; }
         public string Name { get; set; }
         
-        public int TypesProductId { get; set; } //FK    M -->1
-        public TypeProduct TypesProducts { get; set; } //table
+        public int TypeProductId { get; set; } //FK    M -->1
+        public TypeProduct TypeProducts { get; set; } //table
 
         public DateTime DateCreated { get; set; }
 
 
-        public ICollection<Order> Orders { get; set;  // 1 --> M
+       // public ICollection<Order> Orders { get; set;  // 1 --> M
     }
-}
-    }
+}    

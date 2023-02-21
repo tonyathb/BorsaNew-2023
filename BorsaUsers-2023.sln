@@ -3,9 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.4.33403.182
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BorsaUsers-12a", "BorsaUsers-12a\BorsaUsers-12a.csproj", "{B6511D59-18C2-453B-B14C-A4066F8CD6B3}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BorsaUsers-12d", "BorsaUsers-12d\BorsaUsers-12d.csproj", "{6DBBD417-470D-4E33-94ED-FDAAE6655E14}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BorsaUsers-12d", "BorsaUsers-12d\BorsaUsers-12d.csproj", "{6DBBD417-470D-4E33-94ED-FDAAE6655E14}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -13,10 +11,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{B6511D59-18C2-453B-B14C-A4066F8CD6B3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{B6511D59-18C2-453B-B14C-A4066F8CD6B3}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{B6511D59-18C2-453B-B14C-A4066F8CD6B3}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{B6511D59-18C2-453B-B14C-A4066F8CD6B3}.Release|Any CPU.Build.0 = Release|Any CPU
 		{6DBBD417-470D-4E33-94ED-FDAAE6655E14}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{6DBBD417-470D-4E33-94ED-FDAAE6655E14}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6DBBD417-470D-4E33-94ED-FDAAE6655E14}.Release|Any CPU.ActiveCfg = Release|Any CPU

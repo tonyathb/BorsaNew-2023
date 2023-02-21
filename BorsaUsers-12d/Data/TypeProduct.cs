@@ -12,6 +12,6 @@ namespace BorsaUsers_12d.Data
         public DateTime RegisterOn { get; set; }
 
         //Connection 1 -- > M
-        public ICollection<Product> Products { get; set; }
+        //public ICollection<Product> Products { get; set; }
     }
 }
