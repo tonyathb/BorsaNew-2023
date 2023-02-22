@@ -17,6 +17,11 @@ builder.Services.AddDefaultIdentity<Customer>(options => options.SignIn.RequireC
 
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 builder.Services.AddControllersWithViews();
+//PODtiskane na nullAttribute
+builder.Services.AddControllers(
+    options => options.SuppressImplicitRequiredAttributeForNonNullableReferenceTypes = true);
+
+//https://learn.microsoft.com/en-us/aspnet/core/mvc/models/validation?view=aspnetcore-7.0
 
 var app = builder.Build();
 

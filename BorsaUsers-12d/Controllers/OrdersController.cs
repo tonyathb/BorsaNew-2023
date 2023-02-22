@@ -55,18 +55,21 @@ namespace BorsaUsers_12d.Controllers
         // GET: Orders/Create
         public IActionResult Create()
         {
-            OrderVM currentOrder = new OrderVM();
-            //currentOrder.CustomerId = _userManager.GetUserId(User);
-            currentOrder.Products = _context.Products.Select(x => new SelectListItem
-            {
-                Text = x.Name,
-                Value = x.Id.ToString(),
-                Selected = (x.Id == currentOrder.ProductId)
-            }
-            ).ToList();
-            //ViewData["CustomerId"] = new SelectList(_context.Users, "Id", "Id");
-            //ViewData["ProductId"] = new SelectList(_context.Products, "Id", "Id");
+            //OrderVM currentOrder = new OrderVM();
+            ////currentOrder.CustomerId = _userManager.GetUserId(User);
+            //currentOrder.Products = _context.Products.Select(x => new SelectListItem
+            //{
+            //    Text = x.Name,
+            //    Value = x.Id.ToString(),
+            //    Selected = (x.Id == currentOrder.ProductId)
+            //}
+            //).ToList();
+            //>>>> ViewData["CustomerId"] = new SelectList(_context.Users, "Id", "Id");
+            ViewBag.ProductId = new SelectList(_context.Products, "Id", "Name");
+
+            //ViewData["ProductId"] = new SelectList(_context.Products, "Id", "Name");
             return View();
+            //return View(currentOrder);
         }
 
         // POST: Orders/Create
@@ -74,18 +77,18 @@ namespace BorsaUsers_12d.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("ProductId,CustomerId")] OrderVM order)
+        public async Task<IActionResult> Create([Bind("ProductId")] Order order)
         {
             if (ModelState.IsValid)
             {
                 order.CustomerId = _userManager.GetUserId(User);
-                _context.Add(order);
+                _context.Orders.Add(order);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
 
-            //ViewData["CustomerId"] = new SelectList(_context.Users, "Id", "Id", order.CustomerId);
-            //ViewData["ProductId"] = new SelectList(_context.Products, "Id", "Id", order.ProductId);
+            // ViewData["CustomerId"] = new SelectList(_context.Users, "Id", "Id", order.CustomerId);
+            ViewData["ProductId"] = new SelectList(_context.Products, "Id", "Id", order.ProductId);
             return View(order);
         }
 
@@ -102,8 +105,8 @@ namespace BorsaUsers_12d.Controllers
             {
                 return NotFound();
             }
-            ViewData["CustomerId"] = new SelectList(_context.Users, "Id", "Id", order.CustomerId);
-            ViewData["ProductId"] = new SelectList(_context.Products, "Id", "Id", order.ProductId);
+            //>>> ViewData["CustomerId"] = new SelectList(_context.Users, "Id", "Id", order.CustomerId);
+            ViewData["ProductId"] = new SelectList(_context.Products, "Id", "Name", order.ProductId);
             return View(order);
         }
 
@@ -112,36 +115,38 @@ namespace BorsaUsers_12d.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,ProductId,CustomerId")] OrderVM order)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,ProductId")] Order order)
         {
             if (id != order.Id)
             {
                 return NotFound();
             }
 
-            if (ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
-                try
-                {
-                    _context.Update(order);
-                    await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!OrderExists(order.Id))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
-                return RedirectToAction(nameof(Index));
+                //ViewData["CustomerId"] = new SelectList(_context.Users, "Id", "Id", order.CustomerId);
+                ViewData["ProductId"] = new SelectList(_context.Products, "Id", "Id", order.ProductId);
+                return View(order);
             }
-            ViewData["CustomerId"] = new SelectList(_context.Users, "Id", "Id", order.CustomerId);
-            ViewData["ProductId"] = new SelectList(_context.Products, "Id", "Id", order.ProductId);
-            return View(order);
+            //The MODEL IS VALID
+            try
+            {
+                order.CustomerId = _userManager.GetUserId(User);
+                _context.Update(order);
+                await _context.SaveChangesAsync();
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                if (!OrderExists(order.Id))
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    throw;
+                }
+            }
+            return RedirectToAction(nameof(Index));
         }
 
         // GET: Orders/Delete/5
@@ -178,14 +183,14 @@ namespace BorsaUsers_12d.Controllers
             {
                 _context.Orders.Remove(order);
             }
-            
+
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
         private bool OrderExists(int id)
         {
-          return _context.Orders.Any(e => e.Id == id);
+            return _context.Orders.Any(e => e.Id == id);
         }
     }
 }

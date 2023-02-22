@@ -54,14 +54,12 @@ namespace BorsaUsers_12d.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Name,RegisterOn")] TypeProduct typeProduct) //bez RegisterOn
+        public async Task<IActionResult> Create([Bind("Name")] TypeProduct typeProduct) //bez RegisterOn
         {
             if (ModelState.IsValid)
-            {
-                TypeProduct typeDB = new TypeProduct();
-                typeDB.Name = typeProduct.Name;
+            {                
                 typeProduct.RegisterOn = DateTime.Now;
-                _context.Add(typeDB);
+                _context.Add(typeProduct);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
@@ -89,7 +87,7 @@ namespace BorsaUsers_12d.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,RegisterOn")] TypeProduct typeProduct)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Name")] TypeProduct typeProduct)
         {
             if (id != typeProduct.Id)
             {

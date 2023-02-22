@@ -58,15 +58,16 @@ namespace BorsaUsers_12d.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Name,TypeProductId,DateCreated")] Product product)
+        public async Task<IActionResult> Create([Bind("Id,Name,TypeProductId")] Product product)
         {
             if (ModelState.IsValid)
             {
+                product.DateCreated= DateTime.Now;  
                 _context.Products.Add(product);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["TypeProductId"] = new SelectList(_context.TypeProducts, "Id", "Id", product.TypeProductId);
+            ViewData["TypeProductId"] = new SelectList(_context.TypeProducts, "Id", "Name", product.TypeProductId);
             return View(product);
         }
 
@@ -83,7 +84,7 @@ namespace BorsaUsers_12d.Controllers
             {
                 return NotFound();
             }
-            ViewData["TypeProductId"] = new SelectList(_context.TypeProducts, "Id", "Id", product.TypeProductId);
+            ViewData["TypeProductId"] = new SelectList(_context.TypeProducts, "Id", "Name", product.TypeProductId);
             return View(product);
         }
 
@@ -92,7 +93,7 @@ namespace BorsaUsers_12d.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,TypeProductId,DateCreated")] Product product)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,TypeProductId")] Product product)
         {
             if (id != product.Id)
             {
@@ -103,6 +104,7 @@ namespace BorsaUsers_12d.Controllers
             {
                 try
                 {
+                    product.DateCreated= DateTime.Now;
                     _context.Update(product);
                     await _context.SaveChangesAsync();
                 }
@@ -119,7 +121,7 @@ namespace BorsaUsers_12d.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["TypeProductId"] = new SelectList(_context.TypeProducts, "Id", "Id", product.TypeProductId);
+            ViewData["TypeProductId"] = new SelectList(_context.TypeProducts, "Id", "Name", product.TypeProductId);
             return View(product);
         }
 
