@@ -3,6 +3,13 @@
 @{
     ViewData["Title"] = "Create";
 }
+@section Styles{
+    <style>
+        body{
+            background-color:cadetblue;
+        }
+    </style>
+}
 
 <h1>Create</h1>
 
@@ -16,10 +23,15 @@
                 <label asp-for="ProductId" class="control-label"></label>
                 <select asp-for="ProductId" class ="form-control" asp-items="ViewBag.ProductId"></select>
             </div>
-           @* <div class="form-group">
+            @*<div class="form-group">
                 <label asp-for="CustomerId" class="control-label"></label>
                 <select asp-for="CustomerId" class ="form-control" asp-items="ViewBag.CustomerId"></select>
             </div>*@
+            <div class="form-group">
+                <label asp-for="Quantity" class="control-label"></label>
+                <input asp-for="Quantity" class="form-control" />
+                <span asp-validation-for="Quantity" class="text-danger"></span>
+            </div>
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />
             </div>
@@ -28,7 +40,7 @@
 </div>
 
 <div>
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="Index" class="btn-info">Back to List</a>
 </div>
 
 @section Scripts {

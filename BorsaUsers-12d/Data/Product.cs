@@ -14,6 +14,10 @@ namespace BorsaUsers_12d.Data
         public int TypeProductId { get; set; } //FK    M -->1
         public TypeProduct TypeProducts { get; set; } //table
 
+        public string ImageURL { get; set; }
+        
+        [Column(TypeName ="decimal(10,2)")]
+        public decimal Price { get; set; }
         public DateTime DateCreated { get; set; }
 
 

@@ -1,4 +1,8 @@
-﻿<!DOCTYPE html>
+﻿@using BorsaUsers_12d.Data;
+@using Microsoft.AspNetCore.Identity;
+@inject UserManager<Customer> userManager;
+@inject SignInManager<Customer> signInManager;
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -7,6 +11,8 @@
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/BorsaUsers_12d.styles.css" asp-append-version="true" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+    @RenderSection("Styles", required:false);
 </head>
 <body>
     <header>
@@ -20,11 +26,28 @@
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                     <ul class="navbar-nav flex-grow-1">
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">НАЧАЛО</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Products" asp-action="Index">КАТАЛОГ с ПРОДУКТИ</a>
                         </li>
+                        @if (signInManager.IsSignedIn(User))
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-controller="Orders"
+                                asp-action="Index">ПОРЪЧКИ</a>
+                            </li>
+                            if (User.IsInRole("Admin"))
+                            {
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark" 
+                                    asp-controller="TypeProducts" 
+                                    asp-action="Index">Type Of Products</a>
+                                </li>
+                            }
+                        }
+
+
                     </ul>
                     <partial name="_LoginPartial" />
                 </div>
@@ -37,7 +60,8 @@
         </main>
     </div>
 
-    <footer class="border-top footer text-muted">
+    <footer>
+        @*class="border-top footer text-muted">*@
         <div class="container">
             &copy; 2023 - BorsaUsers_12d - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
         </div>

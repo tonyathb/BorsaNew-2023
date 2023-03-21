@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Microsoft.AspNetCore.Mvc.Rendering;
+using System.ComponentModel.DataAnnotations;
 
 namespace BorsaUsers_12d.Models
 {
@@ -10,5 +11,7 @@ namespace BorsaUsers_12d.Models
         [DataType(DataType.DateTime)]
         [DisplayFormat(DataFormatString = "{0:dd-MM-yyyy}", ApplyFormatInEditMode = true)]
         public DateTime RegisterOn { get; set; }
+        public List<SelectListItem> TypeProducts { get; set; }
+
     }
 }

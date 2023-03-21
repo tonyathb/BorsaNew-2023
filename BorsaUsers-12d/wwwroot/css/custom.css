@@ -1,0 +1,14 @@
+﻿footer {
+    background-color: white;
+    color:darkgreen;
+    display:block;
+    position:fixed;
+    
+    margin-bottom:0;
+    width:90%;
+    height:70px;
+}
+body {
+    /*background-color: greenyellow;*/
+    color: white;
+}

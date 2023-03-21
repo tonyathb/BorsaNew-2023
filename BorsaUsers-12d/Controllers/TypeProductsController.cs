@@ -6,7 +6,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using BorsaUsers_12d.Data;
-using BorsaUsers_12d.Models;
+using Microsoft.AspNetCore.Authorization;
+using System.Data;
 
 namespace BorsaUsers_12d.Controllers
 {
@@ -44,6 +45,7 @@ namespace BorsaUsers_12d.Controllers
         }
 
         // GET: TypeProducts/Create
+        [Authorize(Roles = "Admin")]
         public IActionResult Create()
         {
             return View();
@@ -54,10 +56,10 @@ namespace BorsaUsers_12d.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Name")] TypeProduct typeProduct) //bez RegisterOn
+        public async Task<IActionResult> Create([Bind("Name")] TypeProduct typeProduct)
         {
             if (ModelState.IsValid)
-            {                
+            {
                 typeProduct.RegisterOn = DateTime.Now;
                 _context.Add(typeProduct);
                 await _context.SaveChangesAsync();
@@ -67,6 +69,7 @@ namespace BorsaUsers_12d.Controllers
         }
 
         // GET: TypeProducts/Edit/5
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null || _context.TypeProducts == null)
@@ -87,7 +90,7 @@ namespace BorsaUsers_12d.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Name")] TypeProduct typeProduct)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,RegisterOn")] TypeProduct typeProduct)
         {
             if (id != typeProduct.Id)
             {
@@ -98,7 +101,6 @@ namespace BorsaUsers_12d.Controllers
             {
                 try
                 {
-                    typeProduct.RegisterOn = DateTime.Now;
                     _context.Update(typeProduct);
                     await _context.SaveChangesAsync();
                 }
@@ -119,6 +121,7 @@ namespace BorsaUsers_12d.Controllers
         }
 
         // GET: TypeProducts/Delete/5
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null || _context.TypeProducts == null)

@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using BorsaUsers_12d.Data;
+using Microsoft.AspNetCore.Authorization;
 
 namespace BorsaUsers_12d.Controllers
 {
@@ -21,8 +22,7 @@ namespace BorsaUsers_12d.Controllers
         // GET: Products
         public async Task<IActionResult> Index()
         {
-            var borsaDbContext = _context.Products
-                .Include(p => p.TypeProducts);
+            var borsaDbContext = _context.Products.Include(p => p.TypeProducts);
             return View(await borsaDbContext.ToListAsync());
         }
 
@@ -44,12 +44,11 @@ namespace BorsaUsers_12d.Controllers
 
             return View(product);
         }
-
-        // GET: Products/Create
+// GET: Products/Create
+        [Authorize(Roles ="Admin")]
         public IActionResult Create()
         {
-            ViewData["TypeProductId"] = new 
-                SelectList(_context.TypeProducts, "Id", "Name");
+            ViewData["TypeProductId"] = new SelectList(_context.TypeProducts, "Id", "Name");
             return View();
         }
 
@@ -58,7 +57,7 @@ namespace BorsaUsers_12d.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Name,TypeProductId")] Product product)
+        public async Task<IActionResult> Create([Bind("Name,TypeProductId,Price,ImageURL")] Product product)
         {
             if (ModelState.IsValid)
             {
@@ -72,6 +71,7 @@ namespace BorsaUsers_12d.Controllers
         }
 
         // GET: Products/Edit/5
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null || _context.Products == null)
@@ -93,7 +93,7 @@ namespace BorsaUsers_12d.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,TypeProductId")] Product product)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,TypeProductId,Price,ImageURL")] Product product)
         {
             if (id != product.Id)
             {
@@ -105,7 +105,7 @@ namespace BorsaUsers_12d.Controllers
                 try
                 {
                     product.DateCreated= DateTime.Now;
-                    _context.Update(product);
+                    _context.Products.Update(product);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
@@ -126,6 +126,7 @@ namespace BorsaUsers_12d.Controllers
         }
 
         // GET: Products/Delete/5
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null || _context.Products == null)
@@ -165,7 +166,7 @@ namespace BorsaUsers_12d.Controllers
 
         private bool ProductExists(int id)
         {
-          return _context.Products.Any(e => e.Id == id);
+          return (_context.Products?.Any(e => e.Id == id)).GetValueOrDefault();
         }
     }
 }

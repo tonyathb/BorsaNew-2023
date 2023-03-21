@@ -1,18 +1,44 @@
 html {
   font-size: 14px;
+  color:white !important;
 }
 
 @media (min-width: 768px) {
-  html {
-    font-size: 16px;
-  }
+    html {
+        color: white !important;
+        font-size: 16px;
+    }
 }
 
 html {
-  position: relative;
-  min-height: 100%;
+    position: relative;
+    color: white !important;
+    min-height: 100%;
 }
 
 body {
-  margin-bottom: 60px;
+    /*background-color:rgba(0, 255, 144,0.2);*/
+    background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url("../background1.jpg");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    position: relative;
+    color:blue;
+    font:bold;
+    /*margin-bottom: 60px;
+    background-image: url('../png-transparent-blue-diagram-chart-personal-finance-market-accounting-market-growth-trend-blue-angle-text-thumbnail.png') ;
+    background-repeat: no-repeat;
+    background-position-y: center;*/
+    /*background-position-x:center;*/
+    /*background-size: 70% auto;*/
+  
+}
+footer {
+    background-color: white;
+    color: darkgreen;
+    display: block;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    height: 70px;
 }

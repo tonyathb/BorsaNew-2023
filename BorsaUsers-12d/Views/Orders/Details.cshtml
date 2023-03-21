@@ -4,27 +4,42 @@
     ViewData["Title"] = "Details";
 }
 
-<h1>Details</h1>
+<h1>ПОДРОБНО за ПОРЪЧКА</h1>
 
-<div>
-    <h4>Order</h4>
+<div class="card">
+    <h4 class="card-header">ПОРЪЧКА № @Model.Id</h4>
     <hr />
-    <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Products)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Products.Id)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Customers)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Customers.Id)
-        </dd>
-    </dl>
+    <div class="card-body">
+        <dl class="row">
+            <dt class="col-sm-2 card-footer">
+                @Html.DisplayNameFor(model => model.Products)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Products.Name)
+            </dd>
+            <dt class="col-sm-2 card-title">
+                @Html.DisplayNameFor(model => model.Customers)
+            </dt>
+            <dd class="col-sm-10">
+                @(Model.Customers.FirstName + " " + Model.Customers.LastName)
+                @*@Html.DisplayFor(model => model.Customers.FirstName )*@
+            </dd>
+            <dt class="col-sm-2 card-subtitle" >
+                @Html.DisplayNameFor(model => model.Quantity)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Quantity)
+            </dd>
+            <dt class="col-sm-2 card-footer">
+               СУМА /лв./
+            </dt>
+            <dd class="col-sm-10">
+               @(Model.Products.Price*Model.Quantity)
+            </dd>
+        </dl>
+    </div>
 </div>
 <div>
-    <a asp-action="Edit" asp-route-id="@Model?.Id">Edit</a> |
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="Edit" asp-route-id="@Model?.Id" class="btn btn-dark">Edit</a> |
+    <a asp-action="Index" class="btn btn-info">Back to List</a>
 </div>
